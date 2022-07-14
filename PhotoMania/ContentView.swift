@@ -9,14 +9,22 @@ import SwiftUI
 // https://random.imagecdn.app/500/500
 
 class ViewModel :ObservableObject {
-    
+    @Published var image : Image?
     func fetchNewImage(){
-        guard URL(string: "https://random.imagecdn.app/500/500") != nil else {
-            return
+        guard let url = URL(string: "https://random.imagecdn.app/500/500")  else {return}
+        let task = URLSession.shared.dataTask(with: url) {
+            data,_, _ in guard let data = data else {return}
+        
+            DispatchQueue.main.async {
+                guard  let uiImage = UIImage(data: data) else {return}
+                self.image = Image(uiImage : uiImage)
+                }
+            }
         }
-    }
 }
+
 struct ContentView: View {
+    var viewModel = ViewModel()
     var body: some View {
         NavigationView {
             VStack {
