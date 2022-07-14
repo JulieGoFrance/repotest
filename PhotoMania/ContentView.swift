@@ -20,23 +20,29 @@ class ViewModel :ObservableObject {
                 self.image = Image(uiImage : uiImage)
                 }
             }
+            task.resume()
         }
 }
 
 struct ContentView: View {
-    var viewModel = ViewModel()
+   @StateObject var viewModel = ViewModel()
     var body: some View {
         NavigationView {
             VStack {
                 Spacer()
-                Image(systemName: "photo").resizable().foregroundColor(Color.pink).frame(width: 200, height: 200).padding()
+                if let image = viewModel.image{
+        image.resizable().foregroundColor(Color.blue).frame(width: 200, height: 200).padding()
+                }else {
+                    Image(systemName: "photo").resizable().foregroundColor(Color.pink).frame(width: 200, height: 200).padding()
+                }
+               
                 Spacer()
                 
                 Button(action: {
-                    // todo
+                    viewModel.fetchNewImage()
                     
                 }, label : {
-                    Text("New Image !")
+                    Text("New Image13h48 !")
                         .bold()
                         .frame(width: 200, height: 40).foregroundColor(Color.white).background(Color.blue).cornerRadius(8)
                         .padding()
