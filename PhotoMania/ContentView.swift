@@ -31,9 +31,15 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 if let image = viewModel.image{
-        image.resizable().foregroundColor(Color.blue).frame(width: 200, height: 200).padding()
-                }else {
-                    Image(systemName: "photo").resizable().foregroundColor(Color.pink).frame(width: 200, height: 200).padding()
+                    ZStack {
+                        image.resizable().foregroundColor(Color.blue).frame(width: 200, height:200).padding()
+                    }.frame(width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 2)
+                        .background(Color.pink).cornerRadius(8)
+                    
+                }
+                
+                else {
+                    Image(systemName: "photo").resizable().foregroundColor(Color.blue).frame(width: 200, height: 200).padding()
                 }
                
                 Spacer()
@@ -42,7 +48,7 @@ struct ContentView: View {
                     viewModel.fetchNewImage()
                     
                 }, label : {
-                    Text("New Image13h48 !")
+                    Text("Changer d'image")
                         .bold()
                         .frame(width: 200, height: 40).foregroundColor(Color.white).background(Color.blue).cornerRadius(8)
                         .padding()
