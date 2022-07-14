@@ -6,23 +6,6 @@
 //
 
 import SwiftUI
-// https://random.imagecdn.app/500/500
-
-class ViewModel :ObservableObject {
-    @Published var image : Image?
-    func fetchNewImage(){
-        guard let url = URL(string: "https://random.imagecdn.app/500/500")  else {return}
-        let task = URLSession.shared.dataTask(with: url) {
-            data,_, _ in guard let data = data else {return}
-        
-            DispatchQueue.main.async {
-                guard  let uiImage = UIImage(data: data) else {return}
-                self.image = Image(uiImage : uiImage)
-                }
-            }
-            task.resume()
-        }
-}
 
 struct ContentView: View {
    @StateObject var viewModel = ViewModel()
@@ -48,7 +31,7 @@ struct ContentView: View {
                     viewModel.fetchNewImage()
                     
                 }, label : {
-                    Text("Changer d'image")
+                    Text("Changer d'image :) ")
                         .bold()
                         .frame(width: 200, height: 40).foregroundColor(Color.white).background(Color.blue).cornerRadius(8)
                         .padding()
@@ -57,7 +40,7 @@ struct ContentView: View {
                 )
                 
                 
-            }.navigationTitle("PhotoMania")
+            }.navigationTitle("Premiere application")
         }
     }
 }
